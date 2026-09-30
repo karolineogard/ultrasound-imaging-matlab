@@ -1,43 +1,65 @@
-
 # Phased-Array Ultrasound Beamforming in MATLAB
 
 Et individuelt prosjekt fra IN3015 ved Universitetet i Oslo.
 
-I dette prosjektet implementerte jeg en beamformer for rekonstruksjon av
-ultralydbilder fra phased-array-data. Implementasjonen ble sammenlignet med
-en referanseimplementasjon i Ultrasound Toolbox (USTB).
+Prosjektet utforsker rekonstruksjon av ultralydbilder fra phased-array-data.
+Jeg implementerte en beam-based delay-and-sum-beamformer i MATLAB og
+sammenlignet resultatet med en referanseimplementasjon i Ultrasound Toolbox
+(USTB).
 
-## Mitt arbeid
+## Mitt bidrag
 
-- Implementerte beam-based beamforming fra bunnen av i MATLAB
-- Beregnet sende- og mottaksforsinkelser for flere transmit events
-- Tidsforsinket RF-kanaldata ved hjelp av interpolasjon
-- Rekonstruerte ultralydbilder fra beamformede data
-- Sammenlignet egen implementasjon med USTBs beamformer
-- Undersøkte hvordan receive apodization, inkludert Hamming-vindu og
-  $f$-nummer, påvirker bildekvaliteten
+Med utgangspunkt i utdelt prosjektramme implementerte jeg den sentrale
+beamforming-logikken:
+
+- Beregning av sende- og mottaksforsinkelser for hvert transmit event og
+  mottakselement
+- Kompensasjon for tidsforskyvning mellom transmit events
+- Interpolering av analytiske RF-signaler ved de beregnede forsinkelsene
+- Summering av forsinkede signaler for å rekonstruere et ultralydbilde
+- Sammenligning mellom egen implementasjon og USTBs delay-and-sum-beamformer
+- Analyse av receive apodization ved bruk av Hamming-vindu med
+  $f$-number $2$
 
 ## Teknologi
 
 - MATLAB
 - Ultrasound Toolbox (USTB)
-- Field II-data / ultralyddata i `.uff`-format
+- Delay-and-sum beamforming
+- Phased-array ultrasound imaging
+
+## Resultater
+
+### Receive apodization
+
+Figuren under sammenligner delay-and-sum-beamforming uten og med receive
+apodization på et simulert datasett med punktspredere.
+
+- Uten apodization vektes mottakselementene likt.
+- Med receive apodization brukes et Hamming-vindu og $f$-number $2$.
+- Apodization reduserer sidelober rundt punktsprederne, men kan samtidig
+  gi en avveining mot lateral oppløsning.
+
+![Comparison of receive apodization](images/receive-apodization-comparison.png)
 
 ## Avhengigheter og data
 
 Koden krever Ultrasound Toolbox (USTB), som ikke er inkludert i dette
 repositoryet.
 
-Prosjektet bruker også ultralyddata i `.uff`-format. Datafilene er ikke
-inkludert, siden de er store og er knyttet til det opprinnelige
-kurs-/USTB-oppsettet.
+Skriptet bruker et stort ultralyddatasett i `.uff`-format. Datasettet er
+ikke inkludert, men skriptet er konfigurert til å hente det via USTBs
+nedlastingsfunksjon når USTB er korrekt installert.
 
-## Resultater
+## Kjøre prosjektet
 
-Resultatfigurer og sammenligninger er tilgjengelige i mappen `images/`.
+1. Installer MATLAB og Ultrasound Toolbox (USTB).
+2. Legg USTB til i MATLAB-path.
+3. Åpne prosjektmappen i MATLAB.
+4. Kjør hovedskriptet.
 
 ## Merk
 
-Dette repositoryet inneholder utvalgte filer fra mitt eget arbeid.
-Det inneholder ikke USTB, komplette datasett, kursmateriell eller den
-opprinnelige oppgaveteksten.
+Repositoryet inneholder utvalgte filer fra mitt eget arbeid, inkludert min
+beamforming-implementasjon. USTB, komplette datasett, kursmateriell og
+opprinnelig oppgavetekst er ikke inkludert.
