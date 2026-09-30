@@ -40,7 +40,7 @@ apodization på et simulert datasett med punktspredere.
 - Apodization reduserer sidelober rundt punktsprederne, men kan samtidig
   gi en avveining mot lateral oppløsning.
 
-![Comparison of receive apodization](images/receive-apodization-comparison.png)
+
 
 ## Avhengigheter og data
 
